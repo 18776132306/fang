@@ -10,10 +10,10 @@ redisConfig.db=1;
 const client = new Redis(redisConfig)
 
 //导出写入数据api
-exports.set = async (key, value, time=3600) => {
-    return await client.set('foo', 'bar1', 'EX', time);
+exports.email_set =(key, value, time=300) => {
+    return client.set(key,value, 'EX', time);
 }
 //导出读取数据api
-exports.get = async (key) => {
-    return await client.get(key);
+exports.email_get = async (key) => {
+    return client.get(key);
 }

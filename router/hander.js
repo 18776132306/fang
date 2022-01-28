@@ -12,24 +12,48 @@ const {jwtSecretKey, expiresIn} = token_config;
 const svg_captcha = require('svg-captcha');
 //导入封装好的redis图形验证存储模块
 const {svg_set, svg_get} = require('../redis/redis_svg');
-// 图形验证的处理函数1
+//导入封装好的redis邮箱验证存储模块
+const {email_set, email_get} = require('../redis/redis_email');
+//导入email发送模块
+const email_send=require('../email')
+//导入随机数生成模块
+const stringRandom = require("string-random")
+// 图形验证的处理函数
 exports.svg = async (req, res) => {
     //通过配置创建svg对象
     const {text, data} = svg_captcha.create(svg_config);
     //redis存入生成的数据
-    const svg_data = await svg_set(req.ip, text);
+    const svg_query = await svg_set(req.ip, text);
     //错误
-    console.log(text)
-    if (svg_data !== 'OK') {
-        res.cc(svg_data);
-        return console.log('缓存数据库存储失败', svg_data)
+    if (svg_query !== 'OK') {
+        res.cc(svg_query);
+        return console.log('svg缓存数据库存储失败', svg_query)
     }
     //缓存数据库存储成功，响应客户端图形码
     res.cc(data, 200);
 }
-//TODO:邮箱验证的处理函数
-exports.email=(req,res)=>{
-
+//邮箱发送的处理函数
+exports.email=async (req,res)=>{
+    //接收表单数据
+    const {email}=req.query;
+    //生成随机验证码
+    const email_value = stringRandom(6);
+    //TODO:将6位验证存入缓存数据库中
+    const email_query=await email_set(email,email_value);
+    //错误
+    if (email_query !== 'OK') {
+        res.cc(email_query);
+        return console.log('email缓存数据库存储失败', email_query);
+    }
+    //TODO:存储成功，向客户发送验证码
+    const email_send_query= await email_send(email,email_value);
+    //错误
+    if (email_send_query) {
+        res.cc(email_send_query);
+        return console.log('email发送失败', email_send_query);
+    }
+    //TODO：发送成功
+    res.cc('发送成功',200)
 }
 // 注册用户的处理函数
 exports.get_user = async (req, res) => {
