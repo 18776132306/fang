@@ -12,7 +12,7 @@ const {jwtSecretKey, expiresIn} = token_config;
 const svg_captcha = require('svg-captcha');
 //导入封装好的redis图形验证存储模块
 const {svg_set, svg_get} = require('../redis/redis_svg');
-// 图形验证的处理函数
+// 图形验证的处理函数1
 exports.svg = async (req, res) => {
     //通过配置创建svg对象
     const {text, data} = svg_captcha.create(svg_config);
