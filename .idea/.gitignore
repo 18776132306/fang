@@ -1,5 +1,6 @@
 # 默认忽略的文件
 /shelf/
+/.idea/
 /config.js
 node_modules 
 /workspace.xml
