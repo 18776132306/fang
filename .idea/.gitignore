@@ -1,6 +1,7 @@
 # 默认忽略的文件
 /shelf/
-/config.js/
+/config.js
+node_modules 
 /workspace.xml
 # 基于编辑器的 HTTP 客户端请求
 /httpRequests/
