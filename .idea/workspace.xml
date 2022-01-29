@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="010e56db-4d9b-47d8-ac71-1dbd5dfb9498" name="变更" comment="邮箱发送模块有个promise的错误没有找到">
+    <list default="true" id="010e56db-4d9b-47d8-ac71-1dbd5dfb9498" name="变更" comment="解决邮箱反馈有一个promise对象未处理">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/email/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/email/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/router/hander.js" beforeDir="false" afterPath="$PROJECT_DIR$/router/hander.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/schema/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/schema/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +14,12 @@
   </component>
   <component name="Git.Settings">
     <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--follow-tags" />
+        <option name="title" value="Current Branch" />
+      </GitPushTagMode>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="test" />
@@ -62,7 +69,8 @@
       <option name="presentableId" value="Default" />
       <updated>1643332228018</updated>
       <workItem from="1643332229903" duration="1386000" />
-      <workItem from="1643367636827" duration="8478000" />
+      <workItem from="1643367636827" duration="9843000" />
+      <workItem from="1643465021489" duration="2647000" />
     </task>
     <task id="LOCAL-00001" summary="ceshi">
       <created>1643332261932</created>
@@ -113,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1643373745493</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="解决邮箱反馈有一个promise对象未处理">
+      <created>1643443606176</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1643443606176</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +156,7 @@
     <MESSAGE value="ceshi" />
     <MESSAGE value="asd" />
     <MESSAGE value="邮箱发送模块有个promise的错误没有找到" />
-    <option name="LAST_COMMIT_MESSAGE" value="邮箱发送模块有个promise的错误没有找到" />
+    <MESSAGE value="解决邮箱反馈有一个promise对象未处理" />
+    <option name="LAST_COMMIT_MESSAGE" value="解决邮箱反馈有一个promise对象未处理" />
   </component>
 </project>

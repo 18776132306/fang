@@ -98,19 +98,19 @@ exports.get_user = async (req, res) => {
     //注册用户成功
     res.cc('注册成功', 200);
 }
-// 登录的处理函数
-exports.login = async (req, res) => {
+// 账号密码登录的处理函数
+exports.name_login = async (req, res) => {
     //接收表单数据
     const {username, password, svg} = req.body;
     //TODO:查询图形验证码是否正确
-    const svg_data = await svg_get(req.ip);
+    const svg_value = await svg_get(req.ip);
     //错误
-    if (svg_data !== svg) {
+    if (svg_value !== svg) {
         res.cc('图形验证码错误,请重新输入');
-        return console.log('缓存数据库查询失败', svg_data)
+        return console.log('svg缓存数据库查询失败', svg_value)
     }
     //图形验证码正确
-    //定义sql语句
+    //定义username查询sql语句
     const sql_query_username = `select * from user where username=?`
     //执行sql，根据用户名查询用户信息
     const data_query_username = await db(sql_query_username, username);
@@ -142,6 +142,46 @@ exports.login = async (req, res) => {
     //TODO:登录成功
     //数据脱敏
     const user = {...data_query_username[0], password: '', user_pic: ''};
+    //生成token
+    const token_str = jwt.sign(user, jwtSecretKey, {expiresIn});
+    // //返回token
+    res.cc('登录成功', 200, `Bearer${token_str}`);
+}
+//邮箱登录的处理函数
+exports.email_login = async (req, res) => {
+    //接收表单数据
+    const {svg, email} = req.body;
+    //TODO:查询图形验证码是否正确
+    const svg_value = await svg_get(req.ip);
+    //错误
+    if (svg_value !== svg) {
+        res.cc('图形验证码错误,请重新输入');
+        return console.log('svg缓存数据库查询失败', svg_value)
+    }
+    //定义email查询sql语句
+    const sql_query_email = `select * from user where username=?`
+    //执行sql，根据email查询用户信息
+    const data_query_email = await db(sql_query_email,email);
+    //错误
+    if (data_query_email instanceof Error) {
+        res.cc(data_query_email);
+        return console.log(`email查询失败:${data_query_email.message}`);
+    }
+    //TODO:是否存在邮箱
+    if (data_query_email.length !== 1) {
+        return res.cc('用户不存在');
+    }
+    //TODO:用户存在
+    //TODO:邮箱验证
+    const email_value_query = email_get(email);
+    if (email_value_query !== email) {
+        res.cc('邮箱验证码错误,请重新输入');
+        return console.log('email缓存数据库查询失败', svg_value)
+    }
+    //邮箱验证码正确
+    //TODO:登录成功
+    //数据脱敏
+    const user = {...data_query_email[0], password: '', user_pic: ''};
     //生成token
     const token_str = jwt.sign(user, jwtSecretKey, {expiresIn});
     // //返回token

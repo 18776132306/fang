@@ -17,4 +17,10 @@ exports.user_verify = {
         username, password, svg
     }
 }
+//导出邮箱验证规则
+exports.email_verify= {
+    query: {
+        email, svg
+    }
+}
 
