@@ -23,6 +23,7 @@ exports.svg = async (req, res) => {
     //通过配置创建svg对象
     const {text, data} = svg_captcha.create(svg_config);
     //redis存入生成的数据
+    console.log(req.ip)
     const svg_query = await svg_set(req.ip, text);
     //错误
     if (svg_query !== 'OK') {
@@ -152,7 +153,7 @@ exports.user_login = async (req, res) => {
     const user = {...data_query_username[0], password: '', user_pic: ''};
     //生成token
     const token_str = jwt.sign(user, jwtSecretKey, {expiresIn});
-    // //返回token
+    //返回token
     res.cc('登录成功', 200, `Bearer${token_str}`);
 }
 //邮箱登录的处理函数
@@ -185,6 +186,6 @@ exports.email_login = async (req, res) => {
     const user = {...email_query[0], password: '', user_pic: ''};
     //生成token
     const token_str = jwt.sign(user, jwtSecretKey, {expiresIn});
-    // //返回token
+    //返回token
     res.cc('登录成功', 200, `Bearer${token_str}`);
 }
