@@ -30,4 +30,10 @@ exports.email_verify = {
         email, email_value, svg
     }
 }
+//导出邮箱验证规则
+exports.email_verify= {
+    query: {
+        email, svg
+    }
+}
 
