@@ -8,13 +8,26 @@ const password = joi.string().pattern(/^[\S]{6,12}$/).required();
 //图形验证规则
 const svg = joi.string().alphanum().min(svg_config.size).max(svg_config.size).required();
 //邮箱验证规则
-const email = joi.string().required().pattern(/^\\s*\\w+(?:\\.?[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$/);
+const email = joi.string().pattern(/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/).required();
+//邮箱验证码验证规则
+const email_value = joi.string().alphanum().max(6).min(6).required();
 
-
-//导出账号密码验证规则
-exports.user_verify = {
+//导出账号注册验证规则
+exports.get_user_verify = {
     body: {
-        username, password, svg
+        username, password, svg,email,email_value
+    }
+}
+//导出账号登录验证规则
+exports.user_verify={
+    body:{
+        username,password,svg
+    }
+}
+//导出邮箱验证规则
+exports.email_verify = {
+    body: {
+        email, email_value, svg
     }
 }
 
